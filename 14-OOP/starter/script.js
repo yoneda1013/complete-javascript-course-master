@@ -22,3 +22,21 @@ console.log(jonas instanceof Person);
 // 2. function is called, this = {}
 // 3. {} linked to prototype
 // 4. function automatically return {}
+
+//Prototypes
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+jonas.calcAge();
+//Each object created by this construction will now get access to all the method of this prototype method.
+
+console.log(jonas.__proto__);
+console.log(jonas.__proto__ === Person.prototype);
+
+console.log(Person.prototype.isPrototypeOf(jonas));
+
+Person.prototype.species = 'Homo sapiens';
+console.log(jonas.species);
+console.log(jonas.hasOwnProperty('firstName'));
+console.log(jonas.hasOwnProperty('species'));
+//species is just be able to access from jonas. not property inside.
