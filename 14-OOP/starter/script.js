@@ -97,3 +97,47 @@ bmw.accelerate();
 bmw.brake();
 
 //OOP Pack data and function in obj
+
+///////////////////////////////////////
+// class
+
+// class expression
+// const PersonCl = class{}
+
+//class declaration
+class PersonCl {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  //Method will be added to .prototype property
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+  //All of these method that we write in the class, outside of the constructor, will be on the prototype of the obj not the obj themself.
+}
+
+const jessica = new PersonCl('Jessica', 1996);
+const manae = new PersonCl('Manae', 1992);
+// When we use instance, constructor will be automatically called.
+console.log(jessica);
+jessica.calcAge();
+
+console.log(jessica.__proto__ === PersonCl.prototype);
+
+// PersonCl.prototype.greet = function () {
+//   console.log(`Hey ${this.firstName}`);
+// };
+
+manae.greet();
+jessica.greet();
+
+// IMPORTANT
+// 1. Classes are not hoisted
+// 2. We can pass them into function and also return them from function
+// 3. Classes are executed in strict mode
