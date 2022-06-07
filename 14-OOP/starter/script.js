@@ -106,8 +106,8 @@ bmw.brake();
 
 //class declaration
 class PersonCl {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
 
@@ -119,14 +119,25 @@ class PersonCl {
   greet() {
     console.log(`Hey ${this.firstName}`);
   }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    //if we write if (name.includes(' ')) this.fullName = name;
+    //then, it's same as this.fullName and that makes error.
+    else alert(`${name} is not a full name`);
+  }
   //All of these method that we write in the class, outside of the constructor, will be on the prototype of the obj not the obj themself.
 }
 
-const jessica = new PersonCl('Jessica', 1996);
+const jessica = new PersonCl('Jessica Davis', 1996);
 const manae = new PersonCl('Manae', 1992);
 // When we use instance, constructor will be automatically called.
 console.log(jessica);
 jessica.calcAge();
+console.log(jessica.age);
 
 console.log(jessica.__proto__ === PersonCl.prototype);
 
@@ -141,3 +152,23 @@ jessica.greet();
 // 1. Classes are not hoisted
 // 2. We can pass them into function and also return them from function
 // 3. Classes are executed in strict mode
+
+///////////////////////////////////////
+//Setters and Getters
+
+const account = {
+  owner: 'Jonas',
+  movements: [200, 530, 120, 300],
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+//latest use simply as property
+console.log(account.latest);
+
+account.latest = 50;
+console.log(account.movements);
