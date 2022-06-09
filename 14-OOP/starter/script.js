@@ -2,15 +2,21 @@
 // //allow function not work with constructor because we need keyword and allow function doesn't have that.
 
 // //constructor like blueprint of house
-// const Person = function (firstName, birthYear) {
-//   this.firstName = firstName;
-//   this.birthYear = birthYear;
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
 
-//   //Never to this. don't use method inside constructor because if we create thousand of instance, for each instance this function will work and that's terrible for performance.
-//   //   this.calcAge = function () {
-//   //     console.log(2037 - this.birthYear);
-//   //   };
-// };
+  //Never to this. don't use method inside constructor because if we create thousand of instance, for each instance this function will work and that's terrible for performance.
+  //   this.calcAge = function () {
+  //     console.log(2037 - this.birthYear);
+  //   };
+};
+
+Person.hey = function () {
+  console.log('Hey There✋');
+};
+Person.hey();
+// but we can't write jonas.hey(); Because hey is not prototype of jonas obj
 
 // //new operator
 // const jonas = new Person('Jonas', 1991);
@@ -111,6 +117,7 @@ class PersonCl {
     this.birthYear = birthYear;
   }
 
+  //Instance methods
   //Method will be added to .prototype property
   calcAge() {
     console.log(2037 - this.birthYear);
@@ -135,7 +142,12 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+
+  static hey() {
+    console.log('Hey there✋');
+  }
 }
+PersonCl.hey();
 
 const jessica = new PersonCl('Jessica Davis', 1996);
 const manae = new PersonCl('Manae Yoneda', 1992);
