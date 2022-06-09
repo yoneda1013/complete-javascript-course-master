@@ -123,20 +123,27 @@ class PersonCl {
   get age() {
     return 2037 - this.birthYear;
   }
+  //Set a property that already exists
   set fullName(name) {
     if (name.includes(' ')) this._fullName = name;
     //if we write if (name.includes(' ')) this.fullName = name;
     //then, it's same as this.fullName and that makes error.
-    else alert(`${name} is not a full name`);
+    // else alert(`${name} is not a full name`);
   }
   //All of these method that we write in the class, outside of the constructor, will be on the prototype of the obj not the obj themself.
+
+  get fullName() {
+    return this._fullName;
+  }
 }
 
 const jessica = new PersonCl('Jessica Davis', 1996);
-const manae = new PersonCl('Manae', 1992);
+const manae = new PersonCl('Manae Yoneda', 1992);
 // When we use instance, constructor will be automatically called.
 console.log(jessica);
 jessica.calcAge();
+
+//getter
 console.log(jessica.age);
 
 console.log(jessica.__proto__ === PersonCl.prototype);
@@ -156,12 +163,15 @@ jessica.greet();
 ///////////////////////////////////////
 //Setters and Getters
 
+const walter = new PersonCl('Walter White', 1965);
+
 const account = {
   owner: 'Jonas',
   movements: [200, 530, 120, 300],
   get latest() {
     return this.movements.slice(-1).pop();
   },
+  //setter needs parameter
   set latest(mov) {
     this.movements.push(mov);
   },
