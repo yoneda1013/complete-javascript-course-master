@@ -154,42 +154,42 @@ DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
 GOOD LUCK 😀
 */
 
-const Car = function (make, speed) {
-  this.make = make;
-  this.speed = speed;
-};
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
 
-Car.prototype.accelerate = function (speed) {
-  console.log((this.speed += 10));
-};
+// Car.prototype.accelerate = function (speed) {
+//   console.log((this.speed += 10));
+// };
 
-Car.prototype.brake = function (speed) {
-  console.log((this.speed -= 5));
-};
+// Car.prototype.brake = function (speed) {
+//   console.log((this.speed -= 5));
+// };
 
-const EV = function (make, speed, charge) {
-  Car.call(this, make, speed);
-  this.charge = charge;
-};
+// const EV = function (make, speed, charge) {
+//   Car.call(this, make, speed);
+//   this.charge = charge;
+// };
 
-EV.prototype = Object.create(Car.prototype);
+// EV.prototype = Object.create(Car.prototype);
 
-EV.prototype.chargeBattery = function (chargeTo) {
-  this.charge = chargeTo;
-};
-//override
-EV.prototype.accelerate = function (speed, charge) {
-  this.speed += 20;
-  this.charge--;
-  console.log(
-    `Tesla going at ${this.speed} km/h, with a charge of ${this.charge}%`
-  );
-};
+// EV.prototype.chargeBattery = function (chargeTo) {
+//   this.charge = chargeTo;
+// };
+// //override
+// EV.prototype.accelerate = function (speed, charge) {
+//   this.speed += 20;
+//   this.charge--;
+//   console.log(
+//     `Tesla going at ${this.speed} km/h, with a charge of ${this.charge}%`
+//   );
+// };
 
-const tesla = new EV('Tesla', 120, 23);
-tesla.chargeBattery(90);
-console.log(tesla);
-tesla.accelerate();
+// const tesla = new EV('Tesla', 120, 23);
+// tesla.chargeBattery(90);
+// console.log(tesla);
+// tesla.accelerate();
 
 ///////////////////////////////////////
 // class
@@ -338,3 +338,64 @@ console.log(mike instanceof Student);
 console.log(mike instanceof Person);
 
 console.log(mike.__proto__.__proto__);
+
+///////////////////////////////////////
+// Inheritance between "Classes" ES6
+
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  static hey() {
+    console.log('Hey there✋');
+  }
+}
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    //Always needs to happen first
+    super(fullName, birthYear);
+    this.course = course;
+    //similar constructor function
+  }
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+  //プロトタイプチェーンの一番最初にくるので、後にくるparentのfunctionをoverrideする
+  calcAge() {
+    console.log(
+      `I'm ${
+        2037 - this.birthYear
+      } years old, but as a student I feel more like ${
+        2037 - this.birthYear + 10
+      }`
+    );
+  }
+}
+
+const martha = new StudentCl('Martha Jones', 2022, 'Computer Science');
+// const martha = new StudentCl('Martha Jones', 2022, 'Computer Science');
+martha.introduce();
+martha.calcAge();
