@@ -433,29 +433,47 @@ jay.calcAge();
 ///////////////////////////////////////
 // Another Class Example
 class Account {
+  // 1)Public field
+  // They are on the instances as present
+  local = navigator.language;
+
+  // 2)Private fields
+  // We can't access this variable from outside.
+  #movements = [];
+  #pin;
+
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this.pin = pin;
-    this.movements = [];
-    this.locale = navigator.local;
+    // to protect property
+    this.#pin = pin;
+    // this._movements = [];
+    // this.local = navigator.local;
     console.log(`Thanks for opening an account, ${owner}`);
   }
 
+  // 3) public method
+  // Public interface
+  getMovements() {
+    return this.#movements;
+  }
+
   deposit(val) {
-    this.movements.push(val);
+    this.#movements.push(val);
   }
 
   withdraw(val) {
     this.deposit(-val);
   }
 
-  approveLoan(val) {
+  // 4) Private methods
+  // this part should be not API of outside so protect it. No browser support it.
+  #approveLoan(val) {
     return true;
   }
 
   requestLoan(val) {
-    if (this.approveLoan(val)) {
+    if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
     }
@@ -465,9 +483,14 @@ class Account {
 const acc1 = new Account('Jonas', 'EUR', 1111);
 console.log(acc1);
 
-// acc1.movements.push(250);
-// acc1.movements.push(-140);
+// wrong way that access to property directly
+// acc1._movements.push(250);
+// acc1._movements.push(-140);
 acc1.deposit(250);
 acc1.withdraw(140);
 acc1.requestLoan(1000);
 console.log(acc1);
+console.log(acc1.getMovements());
+
+///////////////////////////////////////
+// Encapsulation
