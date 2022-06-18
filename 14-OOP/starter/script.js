@@ -433,6 +433,8 @@ jay.calcAge();
 ///////////////////////////////////////
 // Another Class Example
 class Account {
+  ///////////////////////////////////////
+  // Encapsulation
   // 1)Public field
   // They are on the instances as present
   local = navigator.language;
@@ -460,23 +462,27 @@ class Account {
 
   deposit(val) {
     this.#movements.push(val);
+    return this;
   }
 
   withdraw(val) {
     this.deposit(-val);
+    return this;
   }
 
   // 4) Private methods
   // this part should be not API of outside so protect it. No browser support it.
-  #approveLoan(val) {
-    return true;
-  }
+  // #approveLoan(val) {
+  //   return true;
+  // }
 
   requestLoan(val) {
     if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
+      return this;
     }
+    //make it chainable
   }
 }
 
@@ -493,4 +499,6 @@ console.log(acc1);
 console.log(acc1.getMovements());
 
 ///////////////////////////////////////
-// Encapsulation
+// Chaining
+acc1.deposit(300).deposit(300).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log(acc1.getMovements);
