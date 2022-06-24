@@ -64,13 +64,12 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class App {
   #map;
   #mapEvent;
-  #workout = [];
+  #workouts = [];
+
   constructor() {
     this._getPosition();
-
     form.addEventListener('submit', this._newWorkout.bind(this));
     //イベントリスナーfunctionのなかにイベントハンドラーfunctionがある時
-
     // const inputType = document.querySelector('.form__input--type');
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
@@ -170,7 +169,7 @@ class App {
         return alert('Inputs have to be positive numbers');
       workout = new Cycling([lat, lng], distance, duration, elevation);
     }
-    this.#workout.push(workout);
+    this.#workouts.push(workout);
     console.log(workout);
 
     //Add new obj workout array
@@ -257,7 +256,9 @@ class App {
     console.log(workoutEl);
     if (!workoutEl) return;
 
-    const workout = this.#workouts;
+    const workout = this.#workouts.find(
+      work => work.id === workoutEl.dataset.id
+    );
     console.log(workout);
     // .find(
     //   work => work.id === workoutEl.dataset.id
